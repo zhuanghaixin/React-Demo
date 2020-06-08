@@ -20,7 +20,15 @@ class App extends Component {
                 {name:'Tom',age:29},
             ],
         })
-
+    }
+    nameChangeHandler=(event)=>{
+        this.setState({
+            persons:[
+                {name:'Max',age:24},
+                {name:event.target.value,age:12},
+                {name:'Tom',age:29},
+            ],
+        })
     }
     render(){
 
@@ -30,12 +38,13 @@ class App extends Component {
                 <button onClick={this.switchNameHandler.bind(this,'Hisen')}>Switch Name第一种方法传参数</button>
                 <button onClick={()=>this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>
                 <Person
-                    click={this.switchNameHandler.bind(this,'zhx')}
                     name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}> </Person>
+                    age={this.state.persons[0].age}> My hobbies:run</Person>
                 <Person
+                    click={this.switchNameHandler.bind(this,'zhx')}
+                    changed={this.nameChangeHandler}
                     name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}> My hobbies:run</Person>
+                    age={this.state.persons[1].age}> </Person>
                 <Person
                     name={this.state.persons[2].name}
                     age={this.state.persons[2].age}> </Person>
