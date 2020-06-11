@@ -7,7 +7,7 @@ class App extends Component {
         persons: [
             {id:'qwew',name: 'Max', age: 24},
             {id:'afd',name: 'Ben', age: 22},
-            {id:'adsfads',name: 'Tom', age: 29},
+            {id:'adsds',name: 'Tom', age: 29},
         ],
         otherState: 'somen other value',
         showPersons: false
@@ -28,13 +28,25 @@ class App extends Component {
             ],
         })
     }
-    nameChangeHandler = (event) => {
+    nameChangeHandler = (event,id) => {
+        const personIndex=this.state.persons.findIndex(p=>{
+            return p.id===id
+        })
+        console.log('personIndex')
+        console.log(personIndex)
+        // 将person拷贝一份 通过...的形式
+        const person={...this.state.persons[personIndex]}
+
+        person.name=event.target.value
+
+        // const person=Object.assign({},this.state.persons[personIndex])
+
+        //将persons复制一份
+        const persons=[...this.state.persons]
+
+        persons[personIndex]=person
         this.setState({
-            persons: [
-                {name: 'Max', age: 24},
-                {name: event.target.value, age: 12},
-                {name: 'Tom', age: 29},
-            ],
+            persons: persons
         })
     }
     togglePersonsHandler = () => {
@@ -56,6 +68,7 @@ class App extends Component {
                         name={person.name}
                         age={person.age}
                         key={person.id}
+                        changed={(event)=>this.nameChangeHandler(event,person.id)}
 
                     > </Person>
                 )
