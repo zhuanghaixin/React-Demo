@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import classes from './App.css';
 // import Radium,{StyleRoot} from 'radium';
 // import styled from 'styled-components'
 import Person from './Person/Person'
@@ -86,6 +86,8 @@ class App extends Component {
 
         // }
         let persons = null
+        //css moudles
+        let btnClass = [classes.Button]
         if (this.state.showPersons) {
          persons=
              <div>
@@ -103,30 +105,32 @@ class App extends Component {
             })}
              </div>
 
+            //css moudels
+            btnClass.push(classes.Red)
             // style.backgroundColor='red'
             // style[':hover']={
             //     backgroundColor:'salmon',
             //     color:'black'
             // }
         }
-        let classes=[]
+        let assignedClasses=[]
         if(this.state.persons.length<=2){
-            classes.push('red')  //classes =['red']
+            assignedClasses.push(classes.red)  //classes =['red']
         }
         if(this.state.persons.length<=1){
-            classes.push('bold')  //classes =['red bold']
+            assignedClasses.push(classes.bold)  //classes =['red bold']
         }
         return (
 
-                <div className="App">
+                <div className={classes.App}>
                     <h1>react</h1>
-                    <p className={classes.join(' ')}>This is really working</p>
+                    <p className={assignedClasses.join(' ')}>This is really working</p>
                     {/*<StyledButton*/}
                     {/*    alt={this.state.showPersons}*/}
                     {/*    onClick={this.togglePersonsHandler}>*/}
                     {/*    Toggle Person*/}
                     {/*</StyledButton>*/}
-                    <button onClick={this.togglePersonsHandler} className="button">Toggle Person</button>
+                    <button onClick={this.togglePersonsHandler} className={btnClass.join(' ')}>Toggle Person</button>
                     <button onClick={this.switchNameHandler.bind(this, 'Hisen')}>Switch Name第一种方法传参数</button>
                     <button onClick={() => this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>
                     {
