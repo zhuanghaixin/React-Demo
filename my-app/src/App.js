@@ -87,7 +87,7 @@ class App extends Component {
         // }
         let persons = null
         //css moudles
-        let btnClass = [classes.Button]
+        let btnClass = ''
         if (this.state.showPersons) {
          persons=
              <div>
@@ -106,7 +106,8 @@ class App extends Component {
              </div>
 
             //css moudels
-            btnClass.push(classes.Red)
+            // btnClass.push(classes.Red)
+            btnClass=classes.Red
             // style.backgroundColor='red'
             // style[':hover']={
             //     backgroundColor:'salmon',
@@ -130,7 +131,7 @@ class App extends Component {
                     {/*    onClick={this.togglePersonsHandler}>*/}
                     {/*    Toggle Person*/}
                     {/*</StyledButton>*/}
-                    <button onClick={this.togglePersonsHandler} className={btnClass.join(' ')}>Toggle Person</button>
+                    <button onClick={this.togglePersonsHandler} className={btnClass}>Toggle Person</button>
                     <button onClick={this.switchNameHandler.bind(this, 'Hisen')}>Switch Name第一种方法传参数</button>
                     <button onClick={() => this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>
                     {
