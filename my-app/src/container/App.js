@@ -58,23 +58,8 @@ class App extends Component {
         })
     }
 
-    render() {
-        // const style={
-        //     backgroundColor:'green',
-        //     color:'white',
-        //     font:'inherit',
-        //     border:'1px solid blue',
-        //     padding:'8px',
-        //     cursor:'pointer',
-        //     ':hover':{
-        //         backgroundColor:'lightgreen',
-        //     }
-
-
-        // }
+    render()
         let persons = null
-        //css moudles
-
         if (this.state.showPersons) {
             persons =
              <Persons
@@ -83,19 +68,8 @@ class App extends Component {
                  changed={this.nameChangeHandler}
              ></Persons>
 
-            //css moudels
-            // btnClass.push(classes.Red)
-
-            // style.backgroundColor='red'
-            // style[':hover']={
-            //     backgroundColor:'salmon',
-            //     color:'black'
-            // }
         }
-
         return (
-
-
             <div className={classes.App}>
                 <Cockpit persons={this.state.persons}
                          showPersons={this.state.showPersons}
