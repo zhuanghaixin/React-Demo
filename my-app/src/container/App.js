@@ -5,6 +5,14 @@ import Cockpit from "../components/Cockpit/Cockpit"
 
 
 class App extends Component {
+    //挂载阶段
+    constructor(props) {
+        super(props)
+        console.log('[App.js] constructor')
+
+
+    }
+
     state = {
         persons: [
             {id: 'qwew', name: 'Max', age: 24},
@@ -14,6 +22,13 @@ class App extends Component {
         otherState: 'somen other value',
         showPersons: false
     }
+
+    //第二个
+    static getDerivedStateFromProps(props, state) {
+        console.log('[App.js] getDerivedStateFromProps', props)
+        return state
+    }
+
     deletePersonHandler = (personIndex) => {
         const persons = [...this.state.persons]
         persons.splice(personIndex, 1)
@@ -58,22 +73,26 @@ class App extends Component {
         })
     }
 
+    //第三个
     render() {
+        console.log('[App.js] render')
         let persons = null
         if (this.state.showPersons) {
             persons =
-             <Persons
-                 persons={this.state.persons}
-                 clicked={this.deletePersonHandler}
-                 changed={this.nameChangeHandler}
-             ></Persons>
+                <Persons
+                    persons={this.state.persons}
+                    clicked={this.deletePersonHandler}
+                    changed={this.nameChangeHandler}
+                ></Persons>
 
         }
         return (
             <div className={classes.App}>
-                <Cockpit persons={this.state.persons}
-                         showPersons={this.state.showPersons}
-                            clicked={this.togglePersonsHandler}
+                <Cockpit
+                    title={this.props.title}
+                    persons={this.state.persons}
+                    showPersons={this.state.showPersons}
+                    clicked={this.togglePersonsHandler}
                 ></Cockpit>
                 {
                     persons
@@ -83,6 +102,11 @@ class App extends Component {
 
         )
     }
+    //第四个
+    componentDidMount(){
+        console.log('[App.js] componentDidMount')
+    }
+
 }
 
 /*
