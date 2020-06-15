@@ -33,6 +33,10 @@ class Persons extends Component{
         console.log('[Persons.js] componentDidUpdate')
         console.log(shapShot)
     }
+    // 卸载
+    componentWillUnmount(){
+        console.log('[Persons.js] componentWillUnmount')
+    }
 
 }
 

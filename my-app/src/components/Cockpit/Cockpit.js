@@ -1,6 +1,26 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import classes from './Cockpit.css'
 const cockpit=(props)=>{
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect')
+        //如何让http只在第一次请求而不是每次渲染都请求
+        setTimeout(()=>{
+            alert('Saved data to cloud')
+        },1000)
+        return () =>{
+            console.log('[cockpit.js] cleanu= work in useEffect')
+        }
+    },[props.persons])
+
+    //第二个 useEffect
+    useEffect(()=>{
+        console.log('[Cockpit.js]  2nd useEffect')
+        return () =>{
+            console.log('[cockpit.js] cleanup work in 2nd useEffect')
+        }
+    })
+
+
     let assignedClasses=[]
     let btnClass = ''
     if(props.showPersons){
