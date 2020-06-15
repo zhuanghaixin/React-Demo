@@ -4,11 +4,12 @@ const cockpit=(props)=>{
     useEffect(() => {
         console.log('[Cockpit.js] useEffect')
         //如何让http只在第一次请求而不是每次渲染都请求
-        setTimeout(()=>{
+        const timer=setTimeout(()=>{
             alert('Saved data to cloud')
         },1000)
         return () =>{
-            console.log('[cockpit.js] cleanu= work in useEffect')
+            clearTimeout(timer)
+            console.log('[cockpit.js] cleanup work in useEffect')
         }
     },[props.persons])
 
@@ -27,10 +28,10 @@ const cockpit=(props)=>{
         btnClass = classes.Red
     }
 
-    if(props.persons.length<=2){
+    if(props.personsLength<=2){
         assignedClasses.push(classes.red)  //classes =['red']
     }
-    if(props.persons.length<=1){
+    if(props.personsLength<=1){
         assignedClasses.push(classes.bold)  //classes =['red bold']
     }
     return (
@@ -43,4 +44,4 @@ const cockpit=(props)=>{
         </div>
     )
 }
-export default cockpit
+export default React.memo(cockpit)
