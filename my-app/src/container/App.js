@@ -106,6 +106,16 @@ class App extends Component {
     componentDidMount(){
         console.log('[App.js] componentDidMount')
     }
+    //
+    shouldComponentUpdate(nextProps,nextState){
+        console.log('[App.js] shouldComponentUpdate')
+        return true
+    }
+
+    // 更新阶段
+    componentDidUpdate(){
+        console.log('[App.js] componentDidUpdate')
+    }
 
 }
 
