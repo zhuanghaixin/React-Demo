@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons'
 import Cockpit from "../components/Cockpit/Cockpit"
-
+import withClass from '../hoc/withClass'
+import Aux from '../hoc/Aux'
 
 class App extends Component {
     //挂载阶段
@@ -21,7 +22,9 @@ class App extends Component {
         ],
         otherState: 'somen other value',
         showPersons: false,
-        showCockpit:true
+        showCockpit: true,
+        changeCounter:0
+
     }
 
     //第二个
@@ -63,9 +66,13 @@ class App extends Component {
         const persons = [...this.state.persons]
 
         persons[personIndex] = person
-        this.setState({
-            persons: persons
-        })
+        this.setState((prevState,props) => {
+                return {
+                    persons: persons,
+                    changeCounter: prevState.changeCounter + 1
+                }
+            }
+        )
     }
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons
@@ -88,36 +95,39 @@ class App extends Component {
 
         }
         return (
-            <div className={classes.App}>
-                <button onClick={()=>this.setState({showCockpit:false})} >Remove cockpit</button>
-                { this.state.showCockpit?
+            <Aux>
+
+                <button onClick={() => this.setState({showCockpit: false})}>Remove cockpit</button>
+                {this.state.showCockpit ?
                     <Cockpit
-                    title={this.props.title}
-                    personsLength={this.state.persons.length}
-                    showPersons={this.state.showPersons}
-                    clicked={this.togglePersonsHandler}
-                ></Cockpit>
-                :null}
+                        title={this.props.title}
+                        personsLength={this.state.persons.length}
+                        showPersons={this.state.showPersons}
+                        clicked={this.togglePersonsHandler}
+                    ></Cockpit>
+                    : null}
                 {
                     persons
                 }
 
-            </div>
+            </Aux>
 
         )
     }
+
     //第四个
-    componentDidMount(){
+    componentDidMount() {
         console.log('[App.js] componentDidMount')
     }
+
     //
-    shouldComponentUpdate(nextProps,nextState){
+    shouldComponentUpdate(nextProps, nextState) {
         console.log('[App.js] shouldComponentUpdate')
         return true
     }
 
     // 更新阶段
-    componentDidUpdate(){
+    componentDidUpdate() {
         console.log('[App.js] componentDidUpdate')
     }
 
@@ -137,6 +147,6 @@ React.createElement(
 // return React.createElement('div', null, React.createElement('h1', null, 'Hello'));
 
 
-export default App;
+export default withClass(App, classes.App);
 
 
