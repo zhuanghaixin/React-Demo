@@ -1,14 +1,23 @@
-import React,{Component,Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classes from './Person.module.css'
 import Aux from '../../../hoc/Aux'
 import withClass from '../../../hoc/withClass'
 
-class Person extends Component{
-    render(){
+class Person extends Component {
+    constructor(props){
+        super(props)
+        this.inputElementRef=React.createRef()
+    }
+    componentDidMount(){
+        // this.inputElement.focus()
+        this.inputElementRef.current.focus()
+    }
+
+    render() {
         console.log('[Person.js] rendering')
         return (
-            <React.Fragment >
+            <React.Fragment>
                 <p
 
                     key="i1"
@@ -19,17 +28,22 @@ class Person extends Component{
                 >{this.props.children}</p>
                 <input
                     key="i3"
-                     type="text"
+                    type="text"
+                    // ref={(inputEl)=>{this.inputElement = inputEl}}
+                    ref={this.inputElementRef}
                     onChange={this.props.changed}
                     defaultValue={this.props.name}/>
             </React.Fragment>
-    )
+        )
     }
 
 }
+
 Person.propTypes = {
-    click:PropTypes.func,
-    name:PropTypes.string,
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
 
 }
-export default withClass(Person,classes.Person)
+export default withClass(Person, classes.Person)
