@@ -1,14 +1,19 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useRef} from 'react'
 import classes from './Cockpit.css'
 const cockpit=(props)=>{
+    const toggleBtnRef=useRef(null)
+    // toggleBtnRef.current.click()
+
     useEffect(() => {
         console.log('[Cockpit.js] useEffect')
         //如何让http只在第一次请求而不是每次渲染都请求
-        const timer=setTimeout(()=>{
-            alert('Saved data to cloud')
-        },1000)
+        // const timer=setTimeout(()=>{
+        //     alert('Saved data to cloud')
+        // },1000)
+        toggleBtnRef.current.click()
+
         return () =>{
-            clearTimeout(timer)
+            // clearTimeout(timer)
             console.log('[cockpit.js] cleanup work in useEffect')
         }
     },[props.persons])
@@ -38,7 +43,9 @@ const cockpit=(props)=>{
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working</p>
-            <button onClick={props.clicked} className={btnClass}>Toggle Person</button>
+            <button
+                ref={toggleBtnRef}
+                onClick={props.clicked} className={btnClass}>Toggle Person</button>
             {/*<button onClick={this.switchNameHandler.bind(this, 'Hisen')}>Switch Name第一种方法传参数</button>*/}
             {/*<button onClick={() => this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>*/}
         </div>
