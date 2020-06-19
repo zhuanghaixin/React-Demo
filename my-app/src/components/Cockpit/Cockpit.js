@@ -39,6 +39,8 @@ const cockpit=(props)=>{
     if(props.personsLength<=1){
         assignedClasses.push(classes.bold)  //classes =['red bold']
     }
+
+
     return (
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
@@ -48,6 +50,8 @@ const cockpit=(props)=>{
                 onClick={props.clicked} className={btnClass}>Toggle Person</button>
             {/*<button onClick={this.switchNameHandler.bind(this, 'Hisen')}>Switch Name第一种方法传参数</button>*/}
             {/*<button onClick={() => this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>*/}
+        {/*    理解Props链问题*/}
+        <button onClick={props.login}>Login in</button>
         </div>
     )
 }

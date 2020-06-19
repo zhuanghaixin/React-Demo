@@ -18,6 +18,7 @@ class Person extends Component {
         console.log('[Person.js] rendering')
         return (
             <React.Fragment>
+                {this.props.isAuth?<p>Authenticated!</p>:<p>Please Login</p>}
                 <p
 
                     key="i1"

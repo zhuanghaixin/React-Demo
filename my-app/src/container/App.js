@@ -23,7 +23,8 @@ class App extends Component {
         otherState: 'somen other value',
         showPersons: false,
         showCockpit: true,
-        changeCounter:0
+        changeCounter:0,
+        authenticated:false
 
     }
 
@@ -81,6 +82,10 @@ class App extends Component {
         })
     }
 
+    //登录
+    loginHandler=()=>{
+        this.setState({authenticated:true})
+    }
     //第三个
     render() {
         console.log('[App.js] render')
@@ -91,6 +96,7 @@ class App extends Component {
                     persons={this.state.persons}
                     clicked={this.deletePersonHandler}
                     changed={this.nameChangeHandler}
+                   isAuthenticated={this.state.authenticated}
                 ></Persons>
 
         }
@@ -104,6 +110,7 @@ class App extends Component {
                         personsLength={this.state.persons.length}
                         showPersons={this.state.showPersons}
                         clicked={this.togglePersonsHandler}
+                        login={this.loginHandler}
                     ></Cockpit>
                     : null}
                 {
