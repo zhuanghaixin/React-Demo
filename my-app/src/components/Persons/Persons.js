@@ -1,5 +1,6 @@
 import React ,{PureComponent}from 'react';
 import Person from "./Person/Person";
+
 class Persons extends PureComponent{
     // static getDerivedStateFromProps(props,state){
     //     console.log('[Persons.js] getDerivedStateFromProps)')

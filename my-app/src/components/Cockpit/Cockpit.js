@@ -1,4 +1,5 @@
 import React,{useEffect,useRef} from 'react'
+import AuthContext from '../../context/auth-context'
 import classes from './Cockpit.css'
 const cockpit=(props)=>{
     const toggleBtnRef=useRef(null)
@@ -51,7 +52,11 @@ const cockpit=(props)=>{
             {/*<button onClick={this.switchNameHandler.bind(this, 'Hisen')}>Switch Name第一种方法传参数</button>*/}
             {/*<button onClick={() => this.switchNameHandler('xxx')}>Switch Name第二种方法传参数</button>*/}
         {/*    理解Props链问题*/}
-        <button onClick={props.login}>Login in</button>
+        <AuthContext.Consumer>
+            {
+                context=><button onClick={context.login}>Login in</button>
+                }
+        </AuthContext.Consumer>
         </div>
     )
 }

@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import classes from './Person.module.css'
 import Aux from '../../../hoc/Aux'
 import withClass from '../../../hoc/withClass'
+import AuthContext from '../../../context/auth-context'
 
 class Person extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.inputElementRef=React.createRef()
+        this.inputElementRef = React.createRef()
     }
-    componentDidMount(){
+
+    componentDidMount() {
         // this.inputElement.focus()
         this.inputElementRef.current.focus()
     }
@@ -17,25 +19,30 @@ class Person extends Component {
     render() {
         console.log('[Person.js] rendering')
         return (
-            <React.Fragment>
-                {this.props.isAuth?<p>Authenticated!</p>:<p>Please Login</p>}
-                <p
+            <Aux>
+            <AuthContext.Consumer>
+                {
+                    context => context.authenticated ? <p>Authenticated!</p> : <p>Please Login</p>
 
-                    key="i1"
-                    onClick={this.props.click}
-                >I'm {this.props.name}, I'm {this.props.age} years old</p>
-                <p
-                    key="i2"
-                >{this.props.children}</p>
-                <input
-                    key="i3"
-                    type="text"
-                    // ref={(inputEl)=>{this.inputElement = inputEl}}
-                    ref={this.inputElementRef}
-                    onChange={this.props.changed}
-                    defaultValue={this.props.name}/>
-            </React.Fragment>
-        )
+                }
+            </AuthContext.Consumer>
+        <p
+
+            key="i1"
+            onClick={this.props.click}
+        >I'm {this.props.name}, I'm {this.props.age} years old</p>
+        <p
+            key="i2"
+        >{this.props.children}</p>
+        <input
+            key="i3"
+            type="text"
+            // ref={(inputEl)=>{this.inputElement = inputEl}}
+            ref={this.inputElementRef}
+            onChange={this.props.changed}
+            defaultValue={this.props.name}/>
+            </Aux>
+    )
     }
 
 }
