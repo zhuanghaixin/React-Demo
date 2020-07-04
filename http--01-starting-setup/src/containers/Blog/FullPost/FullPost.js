@@ -6,10 +6,29 @@ class FullPost extends Component {
     state={
         loadPost:null
     }
+    componentDidMount(){
+        console.log('FullPost this.prop componentDidMount')
+        console.log(this.props)
+        this.loadData()
+
+    }
     componentDidUpdate(){
-        if(this.props.id){
-            if(!this.state.loadPost ||( this.state.loadPost&& this.state.loadPost.id!==this.props.id)){
-                axios.get('https://jsonplaceholder.typicode.com/posts/'+this.props.id)
+        // console.log('FullPost this.props componentDidUpdate')
+        // console.log(this.props)
+        this.loadData()
+
+    }
+    loadData(){
+
+        if(this.props.match.params.id){
+            console.log('this.state.loadPost')
+            console.log(this.state.loadPost)
+            console.log(typeof this.state.loadPost)
+            console.log('this.props.match.params.id')
+            console.log(this.props.match.params.id)
+            console.log(typeof this.props.match.params.id)
+            if(!this.state.loadPost ||( this.state.loadPost&& this.state.loadPost.id!== +this.props.match.params.id)){
+                axios.get('https://jsonplaceholder.typicode.com/posts/'+this.props.match.params.id)
                     .then(res=>{
                         console.log(res.data)
                         this.setState({loadPost:res.data})
@@ -17,10 +36,9 @@ class FullPost extends Component {
             }
 
         }
-
     }
     deletedPostHandler=()=>{
-        axios.delete('/posts/'+this.props.id)
+        axios.delete('/posts/'+this.props.match.params.id)
             .then(res=>{
                 console.log('delete')
                 console.log(res)
@@ -28,7 +46,7 @@ class FullPost extends Component {
     }
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
-        if(this.props.id){
+        if(this.props.match.params.id){
             post= <p style={{textAlign: 'center'}}>Loading...</p>;
         }
      if(this.state.loadPost){

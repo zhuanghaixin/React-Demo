@@ -1,11 +1,13 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import axios from "../../../axios";
 import Post from '../../../components/Post/Post'
 // import classs from './Posts.css'
 import './Posts.css'
+import {Link,Route} from 'react-router-dom'
+import FullPost from '../FullPost/FullPost'
 
 
-class Posts extends Component{
+class Posts extends Component {
     state = {
         posts: [],
         // selectedPostId: null,
@@ -13,16 +15,19 @@ class Posts extends Component{
     }
 
     selectedPostHandler = (id) => {
-        this.setState({selectedPostId: id}
-        )
+        // this.setState({selectedPostId: id}
+        // )
+        // this.props.history.push({pathname: '/posts/' + id})
+        this.props.history.push('/posts/'+id)
     }
 
     componentDidMount() {
-        console.log(this.props)
+        // console.log('this.props.match')
+        // console.log(this.props.match.url)
         axios.get('/posts').then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             const posts = res.data.slice(0, 4)
-            console.log(posts)
+            // console.log(posts)
             //          给每个post重新添加了一个属性author
             const updatePosts = posts.map(post => {
                 return {
@@ -30,7 +35,7 @@ class Posts extends Component{
                     author: "Max"
                 }
             })
-            console.log(updatePosts)
+            // console.log(updatePosts)
             this.setState({posts: updatePosts})
 
         }).catch(err => {
@@ -38,29 +43,44 @@ class Posts extends Component{
             // this.setState({error: true})
         })
     }
-    render(){
+
+    render() {
         let posts = <p style={{textAlign: 'center'}}> Something went wrong</p>
         if (!this.state.error) {
             posts = this.state.posts.map(
                 post => {
-                    return <Post
-                        title={post.title}
-                        key={post.id}
-                        author={post.author}
-                        selectPost={() => {
-                            this.selectedPostHandler(post.id)
+                    return (
+                        // <Link
+                        //     // to={'/posts/'+post.id}
+                        //       to={{
+                        //           pathname:'/'+post.id
+                        //       }}
+                        //       key={post.id}>
+                        <Post
+                            title={post.title}
 
-                        }}
-                        {...this.props}
-                    ></Post>
+                            author={post.author}
+                            selectPost={() => {
+                                this.selectedPostHandler(post.id)
+
+                            }}
+                            key={post.id}
+                            {...this.props}
+                        ></Post>
+                    // </Link>
+                    )
                 }
             )
         }
         return (
-            <section className="Posts">
-                {posts}
-            </section>
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+                <Route path={this.props.match.url+'/:id'}  component={FullPost}></Route>
+            </div>
         )
     }
 }
+
 export default Posts
